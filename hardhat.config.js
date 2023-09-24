@@ -1,8 +1,7 @@
 require("@nomicfoundation/hardhat-toolbox");
 // require("hardhat-celo");
 require('dotenv').config();
-const { PRIVATE_KEY, NEON_RPC_URL,FILECOIN_RPC_URL, SCROLL_RPC_URL,RPC_URL,GORLIE_RPC_URL, CELO_RPC_URL, GNOSIS_RPC_URL, ETHERSCAN_API } = process.env;
-
+const { LINEASCAN_API_KEY, PRIVATE_KEY, NEON_RPC_URL,FILECOIN_RPC_URL, SCROLL_RPC_URL,RPC_URL,GORLIE_RPC_URL, CELO_RPC_URL, GNOSIS_RPC_URL, ETHERSCAN_API } = process.env;
 module.exports = {
   solidity: {
     version: "0.8.19",
@@ -62,11 +61,15 @@ module.exports = {
     //   url: XDC_RPC_URL,
     //   accounts: [PRIVATE_KEY],
     // },
-    filecoin : {
-      url: FILECOIN_RPC_URL,
-      gasPrice: 1000000000,
+    linea_testnet: {
+      url: 'https://linea-goerli.infura.io/v3/35aa766e632e4c5abfe82af214c4e6eb',
       accounts: [PRIVATE_KEY],
     },
+    calibrationnet: {
+      chainId: 314159,
+      accounts: [PRIVATE_KEY],
+      url: "https://api.calibration.node.glif.io/rpc/v1",
+      },
     neon : {
       url: NEON_RPC_URL,
       accounts: [PRIVATE_KEY],
@@ -79,7 +82,8 @@ module.exports = {
   // },
   apiKey: {
     scrollSepolia: 'D62920783A4311EE9D6600155D570C742E',
-    chiado:''
+    chiado:'0xb106ed7587365a16b6691a3D4B2A734f4E8268a2',
+    linea_testnet: 'CTACKMXSUJGXK8Q2WWJ1I95U9MMBRQ3ZGJ'
   },
   customChains: [
     {
@@ -98,6 +102,14 @@ module.exports = {
         browserURL: 'https://gnosis-chiado.blockscout.com/',
       },
     },
+    {
+      network: "linea_testnet",
+      chainId: 59140,
+      urls: {
+        apiURL: "https://api-testnet.lineascan.build/api",
+        browserURL: "https://goerli.lineascan.build/address"
+      }
+    }
   ],
 }
 };
